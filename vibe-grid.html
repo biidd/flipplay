@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>The Vibe Grid - FlipPlay</title>
+
+  <link rel="stylesheet" href="src/output.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: #09090b;
+      color: #f4f4f5;
+    }
+
+    .media-card {
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-5px);
+      border-color: #a78bfa;
+    }
+
+    .media-card img {
+      transition: transform 0.35s ease;
+    }
+
+    .media-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .aura-btn.active {
+      background: #7c3aed;
+      color: white;
+      border-color: #8b5cf6;
+    }
+
+    .poster {
+      background: linear-gradient(135deg, #27272a, #18181b);
+    }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/90 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="index.html" class="text-2xl font-extrabold tracking-tight">
+        Flip<span class="text-violet-400">Play</span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm text-zinc-400 md:flex">
+        <a href="#discover" class="text-white">The Vibe Grid</a>
+        <a href="#anime-grid" class="transition hover:text-white">Explore Anime</a>
+      </div>
+
+      <a
+        href="index.html"
+        class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold transition hover:bg-white hover:text-black"
+      >
+        Back 
+      </a>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+    <section id="discover" class="mb-10">
+      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-violet-300">
+        <span class="h-2 w-2 rounded-full bg-violet-400"></span>
+        Powered by AniList
+      </div>
+
+      <h1 class="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+        Find Your Next
+        <span class="text-violet-400">Vibe.</span>
+      </h1>
+
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base">
+        Temukan anime sesuai suasana hatimu. Cari judul favorit atau pilih
+        aura yang cocok dengan mood kamu hari ini.
+      </p>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="mb-8">
+      <label for="search-input" class="mb-3 block text-sm font-semibold text-zinc-300">
+        Unified Search
+      </label>
+
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <div class="relative flex-1">
+          <svg
+            class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m16 16 4 4"></path>
+          </svg>
+
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Cari anime berdasarkan judul..."
+            autocomplete="off"
+            class="w-full rounded-2xl border border-white/10 bg-zinc-900 py-4 pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-violet-500"
+          />
+        </div>
+
+        <button
+          id="refresh-btn"
+          type="button"
+          class="rounded-2xl bg-violet-600 px-6 py-4 text-sm font-bold transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          ↻ Muat Ulang
+        </button>
+      </div>
+    </section>
+
+    <!-- AURA FILTER -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-sm font-bold uppercase tracking-widest text-zinc-400">
+        Aura-Based Discovery
+      </h2>
+
+      <div class="flex flex-wrap gap-3">
+        <button
+          type="button"
+          data-aura="all"
+          class="aura-btn active rounded-full border border-white/10 px-5 py-3 text-sm font-semibold transition hover:border-violet-400"
+        >
+          ✨ All Vibes
+        </button>
+
+        <button
+          type="button"
+          data-aura="energy"
+          class="aura-btn rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-zinc-300 transition hover:border-violet-400"
+        >
+          ⚡ High Energy
+        </button>
+
+        <button
+          type="button"
+          data-aura="melancholy"
+          class="aura-btn rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-zinc-300 transition hover:border-violet-400"
+        >
+          🌙 Melancholy
+        </button>
+
+        <button
+          type="button"
+          data-aura="binge"
+          class="aura-btn rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-zinc-300 transition hover:border-violet-400"
+        >
+          🍿 Binge Mode
+        </button>
+      </div>
+
+      <p id="aura-description" class="mt-3 text-sm text-zinc-500">
+        Menampilkan semua anime yang tersedia.
+      </p>
+    </section>
+
+    <!-- RESULT INFO -->
+    <section id="anime-grid" class="scroll-mt-28">
+      <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <h2 class="text-xl font-bold sm:text-2xl">Explore Anime</h2>
+        <p id="result-count" class="text-sm text-zinc-500">
+          Menyiapkan data...
+        </p>
+      </div>
+
+      <!-- LOADING STATE -->
+      <div id="loading-state" class="py-20 text-center">
+        <div class="mx-auto mb-5 h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-violet-500"></div>
+        <p class="font-semibold text-zinc-300">Menghubungkan ke AniList...</p>
+        <p class="mt-2 text-sm text-zinc-500">Tunggu sebentar, ya.</p>
+      </div>
+
+      <!-- ERROR STATE -->
+      <div id="error-state" class="hidden rounded-3xl border border-red-500/20 bg-red-500/5 px-6 py-12 text-center">
+        <div class="mb-3 text-4xl">⚠️</div>
+        <h3 class="text-xl font-bold text-white">Data gagal dimuat</h3>
+        <p id="error-message" class="mx-auto mt-3 max-w-xl text-sm leading-6 text-zinc-400">
+          Terjadi masalah ketika mengambil data dari AniList.
+        </p>
+        <button
+          id="retry-btn"
+          type="button"
+          class="mt-6 rounded-full bg-violet-600 px-6 py-3 text-sm font-bold transition hover:bg-violet-500"
+        >
+          Coba Lagi
+        </button>
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="empty-state" class="hidden py-16 text-center">
+        <div class="mb-3 text-4xl">🔎</div>
+        <h3 class="text-lg font-bold">Anime tidak ditemukan</h3>
+        <p class="mt-2 text-sm text-zinc-500">
+          Coba kata kunci atau pilihan aura yang berbeda.
+        </p>
+        <button
+          id="reset-filter-btn"
+          type="button"
+          class="mt-5 rounded-full border border-white/15 px-5 py-2 text-sm font-semibold hover:bg-white hover:text-black"
+        >
+          Reset Filter
+        </button>
+      </div>
+
+      <!-- ANIME CARDS -->
+      <div
+        id="anime-container"
+        class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-6"
+      ></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 border-t border-white/10 py-8 text-center">
+      <p class="text-sm text-zinc-500">
+        FlipPlay © 2026 · Data anime disediakan oleh
+        <a
+          href="https://anilist.co/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-violet-400 hover:text-violet-300"
+        >AniList</a>.
+      </p>
+    </footer>
+
+  </main>
+
+  <script>
+    // 1. KONFIGURASI API ANILIST
+    const API_URL = "https://graphql.anilist.co";
+
+    const query = `
+      query {
+        Page(page: 1, perPage: 30) {
+          media(
+            type: ANIME
+            sort: POPULARITY_DESC
+            isAdult: false
+          ) {
+            id
+            title {
+              romaji
+              english
+              native
+            }
+            coverImage {
+              large
+              extraLarge
+            }
+            episodes
+            averageScore
+            genres
+            description(asHtml: false)
+            format
+            seasonYear
+            siteUrl
+          }
+        }
+      }
+    `;
+
+    // 2. MENGAMBIL ELEMEN HTML
+    const searchInput = document.getElementById("search-input");
+    const refreshBtn = document.getElementById("refresh-btn");
+    const retryBtn = document.getElementById("retry-btn");
+    const resetFilterBtn = document.getElementById("reset-filter-btn");
+
+    const animeContainer = document.getElementById("anime-container");
+    const loadingState = document.getElementById("loading-state");
+    const errorState = document.getElementById("error-state");
+    const errorMessage = document.getElementById("error-message");
+    const emptyState = document.getElementById("empty-state");
+    const resultCount = document.getElementById("result-count");
+    const auraDescription = document.getElementById("aura-description");
+
+    const auraButtons = document.querySelectorAll(".aura-btn");
+
+    // 3. STATE APLIKASI
+    let animeList = [];
+    let selectedAura = "all";
+
+    // 4. HELPER UNTUK MENAMPILKAN TEKS AMAN
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, (character) => {
+        const entities = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        };
+
+        return entities[character];
+      });
+    }
+
+    function cleanDescription(description = "") {
+      const plainText = String(description)
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      return escapeHTML(plainText || "Belum ada deskripsi untuk anime ini.");
+    }
+
+    // 5. FETCH DATA DARI ANILIST
+    async function fetchAnime() {
+      loadingState.classList.remove("hidden");
+      errorState.classList.add("hidden");
+      emptyState.classList.add("hidden");
+
+      animeContainer.innerHTML = "";
+      resultCount.textContent = "Memuat data...";
+
+      refreshBtn.disabled = true;
+      retryBtn.disabled = true;
+      refreshBtn.textContent = "Memuat...";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({ query }),
+          signal: AbortSignal.timeout(20000)
+        });
+
+        // Memeriksa status HTTP
+        if (!response.ok) {
+          throw new Error(`Server mengembalikan HTTP ${response.status}.`);
+        }
+
+        const result = await response.json();
+
+        // Memeriksa error GraphQL
+        if (result.errors && result.errors.length > 0) {
+          throw new Error(result.errors[0].message || "Terjadi kesalahan pada AniList.");
+        }
+
+        const data = result.data?.Page?.media;
+
+        if (!Array.isArray(data)) {
+          throw new Error("Format data dari AniList tidak sesuai.");
+        }
+
+        animeList = data;
+
+        loadingState.classList.add("hidden");
+
+        renderAnime();
+
+      } catch (error) {
+        console.error("AniList API error:", error);
+
+        loadingState.classList.add("hidden");
+        errorState.classList.remove("hidden");
+
+        if (error.name === "TimeoutError" || error.name === "AbortError") {
+          errorMessage.textContent =
+            "Permintaan terlalu lama. Periksa koneksi internet lalu coba lagi.";
+        } else if (error instanceof TypeError) {
+          errorMessage.textContent =
+            "Koneksi ke AniList gagal. Periksa internet, coba Live Server, atau periksa apakah koneksi diblokir oleh jaringan.";
+        } else {
+          errorMessage.textContent =
+            error.message || "Terjadi kesalahan yang tidak diketahui.";
+        }
+
+        resultCount.textContent = "Data belum tersedia";
+
+      } finally {
+        refreshBtn.disabled = false;
+        retryBtn.disabled = false;
+        refreshBtn.textContent = "↻ Muat Ulang";
+      }
+    }
+
+    // 6. FILTER AURA DAN SEARCH
+    function getFilteredAnime() {
+      const keyword = searchInput.value.trim().toLowerCase();
+   
+      return animeList.filter((anime) => {
+        const romaji = anime.title?.romaji || "";
+        const english = anime.title?.english || "";
+        const native = anime.title?.native || "";
+
+        const matchesSearch =
+          romaji.toLowerCase().includes(keyword) ||
+          english.toLowerCase().includes(keyword) ||
+          native.toLowerCase().includes(keyword);
+
+        const genres = anime.genres || [];
+
+        let matchesAura = true;
+
+        if (selectedAura === "energy") {
+          matchesAura = genres.some((genre) =>
+            ["Action", "Adventure", "Sports"].includes(genre)
+          );
+        } else if (selectedAura === "melancholy") {
+          matchesAura = genres.some((genre) =>
+            ["Drama", "Romance"].includes(genre)
+          );
+        } else if (selectedAura === "binge") {
+          matchesAura = Number(anime.episodes) >= 24;
+        }
+
+        return matchesSearch && matchesAura;
+      });
+    }
+
+    // 7. RENDER KARTU ANIME
+    function renderAnime() {
+      const filteredAnime = getFilteredAnime();
+
+      animeContainer.innerHTML = "";
+
+      resultCount.textContent =
+        `${filteredAnime.length} anime ditemukan`;
+
+      if (filteredAnime.length === 0) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+
+      // forEach(): menampilkan setiap anime menjadi kartu HTML
+      filteredAnime.forEach((anime) => {
+        const title = anime.title?.english || anime.title?.romaji || "Untitled";
+        const image =
+          anime.coverImage?.extraLarge ||
+          anime.coverImage?.large ||
+          "";
+
+        const score = anime.averageScore
+          ? (anime.averageScore / 10).toFixed(1)
+          : "N/A";
+
+        const episodes = anime.episodes
+          ? `${anime.episodes} eps`
+          : "Episode belum diketahui";
+
+        const year = anime.seasonYear || "Tahun tidak diketahui";
+
+        const genres = (anime.genres || [])
+          .slice(0, 2)
+          .map((genre) =>
+            `<span class="rounded-full bg-white/10 px-2 py-1 text-[10px] text-zinc-300">${escapeHTML(genre)}</span>`
+          )
+          .join("");
+
+        const card = document.createElement("article");
+
+        card.className =
+          "media-card overflow-hidden rounded-2xl border border-white/10 bg-zinc-900";
+
+        card.innerHTML = `
+          <a
+            href="${escapeHTML(anime.siteUrl || "https://anilist.co/")}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block"
+            aria-label="Lihat detail ${escapeHTML(title)} di AniList"
+          >
+            <div class="poster relative aspect-[3/4] overflow-hidden">
+              ${
+                image
+                  ? `<img
+                      src="${escapeHTML(image)}"
+                      alt="Poster ${escapeHTML(title)}"
+                      loading="lazy"
+                      class="h-full w-full object-cover"
+                    />`
+                  : `<div class="flex h-full items-center justify-center p-4 text-center text-sm text-zinc-500">Poster tidak tersedia</div>`
+              }
+
+              <div class="absolute left-2 top-2 rounded-lg bg-black/75 px-2 py-1 text-xs font-bold text-yellow-300 backdrop-blur">
+                ★ ${escapeHTML(score)}
+              </div>
+            </div>
+
+            <div class="p-3">
+              <h3 class="line-clamp-2 min-h-10 text-sm font-bold leading-5 text-white">
+                ${escapeHTML(title)}
+              </h3>
+
+              <p class="mt-2 text-xs text-zinc-500">
+                ${escapeHTML(String(year))} · ${escapeHTML(episodes)}
+              </p>
+
+              <div class="mt-3 flex flex-wrap gap-1">
+                ${genres}
+              </div>
+
+              <p class="line-clamp-3 mt-3 text-xs leading-5 text-zinc-400">
+                ${cleanDescription(anime.description || "")}
+              </p>
+
+              <p class="mt-4 text-xs font-bold text-violet-400">
+                Lihat detail ↗
+              </p>
+            </div>
+          </a>
+        `;
+
+        animeContainer.appendChild(card);
+      });
+    }
+
+    // 8. EVENT HANDLING
+    // Event 1: pencarian real-time ketika pengguna mengetik
+    searchInput.addEventListener("input", () => {
+      if (animeList.length > 0) {
+        renderAnime();
+      }
+    });
+
+    // Event 2: memilih aura berdasarkan tombol
+    auraButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectedAura = button.dataset.aura;
+
+        auraButtons.forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        const descriptions = {
+          all: "Menampilkan semua anime yang tersedia.",
+          energy: "Anime dengan genre Action, Adventure, atau Sports.",
+          melancholy: "Anime dengan genre Drama atau Romance.",
+          binge: "Anime dengan jumlah episode minimal 24."
+        };
+
+        auraDescription.textContent = descriptions[selectedAura];
+
+        renderAnime();
+      });
+    });
+
+    // Event 3: memuat ulang data
+    refreshBtn.addEventListener("click", fetchAnime);
+
+    // Event 4: mencoba kembali ketika terjadi error
+    retryBtn.addEventListener("click", fetchAnime);
+
+    // Event 5: mereset pencarian dan filter
+    resetFilterBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      selectedAura = "all";
+
+      auraButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.aura === "all");
+      });
+
+      auraDescription.textContent =
+        "Menampilkan semua anime yang tersedia.";
+
+      renderAnime();
+    });
+
+    // 9. JALANKAN APLIKASI
+    fetchAnime();
+  </script>
+
+</body>
+</html>
